@@ -1,0 +1,10 @@
+{
+    "name": "FancyNames",
+    "version_number": "0.0.2",
+    "website_url": "",
+    "description": "Simplified nickname manipulation",
+    "dependencies": [
+        "BepInEx-BepInExPack_LLBlaze-5.4.1900",
+	"Glomzubuk-LLBModdingLib-0.6.1"
+    ]
+}
