@@ -9,6 +9,7 @@ using ModMenu;
 using System.Collections.Generic;
 using BepInEx.Configuration;
 using System;
+using System.IO;
 
 namespace FancyNames
 {
@@ -20,6 +21,7 @@ namespace FancyNames
         internal static FancyNames Instance { get; private set; } = null;
         internal static ManualLogSource Log { get; private set; } = null;
         internal static ConfigFile Conf { get; private set; }
+        internal static DirectoryInfo ModFolder { get; private set; }
         public static Harmony harmony = new Harmony(PluginInfo.PLUGIN_NAME);
 
         private bool configInit = false;
@@ -30,10 +32,9 @@ namespace FancyNames
             Log = Logger;
             Log.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
+            ModFolder = LLBML.Utils.ModdingFolder.GetModSubFolder(Info);
             LLBML.Utils.ModDependenciesUtils.RegisterToModMenu(Info, new List<string>{
-                "FancyNames lets your change your ingame name to whatever you want to without having to change your steam nickname","",
-                "The min-max length of a name is between 2 and 32 characters EXCLUDING anything within brackets (e.g < >)","",
-                "For example \"<align=center>Mr<#42069E><align=\"right\">Gentle\" will only count \"MrGentle\" towards the letter count"
+                "FancyNames lets your change your ingame name to whatever you want to without having to change your steam nickname",
             });
             harmony.PatchAll(typeof(Patches.PlayersSelection_Patches));
             harmony.PatchAll(typeof(Patches.ScreenMenu_Patches));
@@ -53,7 +54,8 @@ namespace FancyNames
 		}
 
         private void OnGUI() {
-            if (!ConfigHandler.nameIsValid) GUI.Box(new Rect(10, Screen.height - 40, 200, 30), "Your fancyname is not valid");
+            //No longer needed
+            //if (!ConfigHandler.nameIsValid) GUI.Box(new Rect(10, Screen.height - 40, 200, 30), "Your fancyname is not valid");
 		}
     }
 }

@@ -39,6 +39,7 @@ namespace FancyNames {
 
             static void SetPlayerPatch(ref PostSceenPlayerBar __instance) {
                 __instance.btPlayerName.GetTextMesh().richText = true;
+                //__instance.btPlayerName.GetTextMesh().parseCtrlCharacters = true;
             }
         }
 
@@ -47,7 +48,10 @@ namespace FancyNames {
             [HarmonyPostfix]
 
             static string GetNamePatch(string __result) {
-                if (ConfigHandler.FancyName?.Value != null) {
+                return ConfigHandler.FancyName?.Value != null ? ConfigHandler.FancyName.Value : __result;
+                
+                //Bruh biggest chunk of code in the mod goes into the bin
+                /*if (ConfigHandler.FancyName?.Value != null) {
                     string name = ConfigHandler.FancyName.Value;
 
                     string[] parts = Regex.Split(name, @"<[^>]*>");
@@ -62,7 +66,7 @@ namespace FancyNames {
                     else ConfigHandler.nameIsValid = false; 
 				} 
                 
-                return __result;
+                return __result;*/
             }
         }
     }
